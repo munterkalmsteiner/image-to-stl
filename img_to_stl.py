@@ -49,9 +49,12 @@ class ImageToSTL:
                     img[:, :, :3] * alpha_3d + white_background * (1 - alpha_3d)
                 ).astype(np.uint8)
 
-            # Convert to grayscale
-            print("Converting to grayscale...")
-            gray_img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+            if len(img.shape) == 2:
+                gray_img = img
+            else:
+                # Convert to grayscale
+                print("Converting to grayscale...")
+                gray_img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
             # Apply threshold if specified
             if threshold is not None:
